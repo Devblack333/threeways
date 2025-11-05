@@ -6,7 +6,7 @@ const SITE_PHONE = "+20 111 301 2341";
 const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 /* Why Us images (external stable URLs) */
-const Why1 = "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1200&q=80";
+const Why1 = "https://postimg.cc/7GFnq1y5";
 const Why2 = "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80";
 const Why3 = "https://images.unsplash.com/photo-1508704019882-f9cf40e4756f?auto=format&fit=crop&w=1200&q=80";
 
@@ -80,7 +80,7 @@ const EN_MAIN_CONTENT = `
       </div>
 
       <div class="card svc">
-        <img src="https://postimg.cc/fkvVzjs8" alt="Air freight">
+        <img src="https://postimg.cc/ts4WQvV5" alt="Air freight">
         <h3>Air Freight</h3>
         <p>Priority air shipping for time-sensitive cargo with airport-to-airport or door-to-door options.</p>
       </div>
@@ -194,19 +194,19 @@ const AR_MAIN_CONTENT = `
     <h2>خدماتنا</h2>
     <div class="grid services-grid">
       <div class="card svc">
-        <img data-img-key="Ship" data-img-lang="ar" src="${TRANSPARENT_PIXEL}" alt="الشحن البحري">
+        <img src="https://postimg.cc/fkvVzjs8" alt="الشحن البحري">
         <h3>الشحن البحري</h3>
         <p>خدمات حاويات كاملة (FCL) وأقل من حمولة حاوية (LCL) بشراكات عالمية.</p>
       </div>
 
       <div class="card svc">
-        <img data-img-key="Plane" data-img-lang="ar" src="${TRANSPARENT_PIXEL}" alt="الشحن الجوي الأولوية">
+        <img src="https://postimg.cc/ts4WQvV5" alt="الشحن الجوي الأولوية">
         <h3>الشحن الجوي</h3>
         <p>شحن جوي أولوية للبضائع الحساسة للوقت مع خيارات من مطار إلى مطار أو من الباب إلى الباب.</p>
       </div>
 
       <div class="card svc">
-        <img data-img-key="Truck" data-img-lang="ar" src="${TRANSPARENT_PIXEL}" alt="التوصيل البري">
+        <img dsrc="https://postimg.cc/ts4WQvV5" alt="التوصيل البري">
         <h3>التوصيل البري</h3>
         <p>حلول الميل الأخير، وخدمات البريد السريع المحلي، والشحن على منصات نقالة للتوزيع الإقليمي.</p>
       </div>
