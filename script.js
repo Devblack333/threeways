@@ -6,10 +6,13 @@ const SITE_PHONE = "+20 111 301 2341";
 const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 /* Why Us images (external stable URLs) */
-const Why1 = "https://postimg.cc/7GFnq1y5";
+const Why1 = "https://i.postimg.cc/tJTStDSN/speed-17221155.webp";
 const Why2 = "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80";
 const Why3 = "https://images.unsplash.com/photo-1508704019882-f9cf40e4756f?auto=format&fit=crop&w=1200&q=80";
 
+const ser1 = "https://i.postimg.cc/sfk7JwNC/Adobe-Stock-41064239-Preview.jpg";
+const ser2 = "https://i.postimg.cc/52w3zZ4Z/passenger-airliner-flight-17934723.webp";
+const ser3 = "https://i.postimg.cc/C5L9fgn4/premium-photo-1664695368767-c42483a0bda1.jpg";
 /* --- Translations --- */
 const LANG = {
   en: {
@@ -74,19 +77,19 @@ const EN_MAIN_CONTENT = `
     <h2>Our Services</h2>
     <div class="grid services-grid">
       <div class="card svc">
-        <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/sfk7JwNC/Adobe-Stock-41064239-Preview.jpg' border='0' alt='Adobe-Stock-41064239-Preview'></a>
+        <img src="${ser1}" alt="Sea Freight">
         <h3>Sea Freight</h3>
         <p>Full container loads (FCL) and less-than-container (LCL) services with global carrier partnerships.</p>
       </div>
 
       <div class="card svc">
-        <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/52w3zZ4Z/passenger-airliner-flight-17934723.webp' border='0' alt='passenger-airliner-flight-17934723'></a>
+        <img src="${ser2}" alt="Air Freight">
         <h3>Air Freight</h3>
         <p>Priority air shipping for time-sensitive cargo with airport-to-airport or door-to-door options.</p>
       </div>
 
       <div class="card svc">
-        <a href='https://postimg.cc/2bM0Pgwq' target='_blank'><img src='https://i.postimg.cc/C5L9fgn4/premium-photo-1664695368767-c42483a0bda1.jpg' border='0' alt='premium-photo-1664695368767-c42483a0bda1'></a>
+        <img src="${ser3}" alt="Ground Delivery">
         <h3>Ground Delivery</h3>
         <p>Last-mile solutions, local couriers and palletized freight for regional distribution.</p>
       </div>
@@ -97,7 +100,7 @@ const EN_MAIN_CONTENT = `
     <h2>Why Choose ThreeWays?</h2>
     <div class="why-us">
       <div class="why-card">
-        <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/tJTStDSN/speed-17221155.webp' border='0' alt='speed-17221155'></a>
+        <img src="${Why1}" alt="Speed">
         <div class="txt">
           <h3>Speed</h3>
           <p>Optimized routes and express options to keep your supply chain moving.</p>
@@ -194,19 +197,19 @@ const AR_MAIN_CONTENT = `
     <h2>خدماتنا</h2>
     <div class="grid services-grid">
       <div class="card svc">
-        <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/sfk7JwNC/Adobe-Stock-41064239-Preview.jpg' border='0' alt='Adobe-Stock-41064239-Preview'></a>
+        <img src="${ser1}" alt="Sea Freight">
         <h3>الشحن البحري</h3>
         <p>خدمات حاويات كاملة (FCL) وأقل من حمولة حاوية (LCL) بشراكات عالمية.</p>
       </div>
 
       <div class="card svc">
-        <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/52w3zZ4Z/passenger-airliner-flight-17934723.webp' border='0' alt='passenger-airliner-flight-17934723'></a>
+        <img src="${ser2}" alt="Air Freight">
         <h3>الشحن الجوي</h3>
         <p>شحن جوي أولوية للبضائع الحساسة للوقت مع خيارات من مطار إلى مطار أو من الباب إلى الباب.</p>
       </div>
 
       <div class="card svc">
-        <a href='https://postimg.cc/2bM0Pgwq' target='_blank'><img src='https://i.postimg.cc/C5L9fgn4/premium-photo-1664695368767-c42483a0bda1.jpg' border='0' alt='premium-photo-1664695368767-c42483a0bda1'></a>
+        <img src="${ser3}" alt="Ground Delivery">
         <h3>التوصيل البري</h3>
         <p>حلول الميل الأخير، وخدمات البريد السريع المحلي، والشحن على منصات نقالة للتوزيع الإقليمي.</p>
       </div>
@@ -217,7 +220,7 @@ const AR_MAIN_CONTENT = `
     <h2>لماذا تختار ThreeWays؟</h2>
     <div class="why-us">
       <div class="why-card">
-        <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/tJTStDSN/speed-17221155.webp' border='0' alt='speed-17221155'></a>
+        <img src="${Why1}" alt="Speed">
         <div class="txt">
           <h3>السرعة</h3>
           <p>مسارات مُحسّنة وخيارات سريعة للحفاظ على حركة سلسلة التوريد الخاصة بك.</p>
