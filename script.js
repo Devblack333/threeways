@@ -74,19 +74,19 @@ const EN_MAIN_CONTENT = `
     <h2>Our Services</h2>
     <div class="grid services-grid">
       <div class="card svc">
-        <img data-img-key="Ship" data-img-lang="en" src="${TRANSPARENT_PIXEL}" alt="Sea freight">
+        <img src="https://postimg.cc/fkvVzjs8" alt="Sea freight">
         <h3>Sea Freight</h3>
         <p>Full container loads (FCL) and less-than-container (LCL) services with global carrier partnerships.</p>
       </div>
 
       <div class="card svc">
-        <img data-img-key="Plane" data-img-lang="en" src="${TRANSPARENT_PIXEL}" alt="Air freight">
+        <img src="https://postimg.cc/fkvVzjs8" alt="Air freight">
         <h3>Air Freight</h3>
         <p>Priority air shipping for time-sensitive cargo with airport-to-airport or door-to-door options.</p>
       </div>
 
       <div class="card svc">
-        <img data-img-key="Truck" data-img-lang="en" src="${TRANSPARENT_PIXEL}" alt="Ground delivery">
+        <img src="https://postimg.cc/fkvVzjs8" alt="Ground delivery">
         <h3>Ground Delivery</h3>
         <p>Last-mile solutions, local couriers and palletized freight for regional distribution.</p>
       </div>
