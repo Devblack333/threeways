@@ -86,7 +86,7 @@ const EN_MAIN_CONTENT = `
       </div>
 
       <div class="card svc">
-        <img src="https://postimg.cc/fkvVzjs8" alt="Ground delivery">
+        <img src="https://postimg.cc/2bM0Pgwq" alt="Ground delivery">
         <h3>Ground Delivery</h3>
         <p>Last-mile solutions, local couriers and palletized freight for regional distribution.</p>
       </div>
@@ -206,7 +206,7 @@ const AR_MAIN_CONTENT = `
       </div>
 
       <div class="card svc">
-        <img dsrc="https://postimg.cc/ts4WQvV5" alt="التوصيل البري">
+        <img dsrc="https://postimg.cc/2bM0Pgwq" alt="التوصيل البري">
         <h3>التوصيل البري</h3>
         <p>حلول الميل الأخير، وخدمات البريد السريع المحلي، والشحن على منصات نقالة للتوزيع الإقليمي.</p>
       </div>
