@@ -13,6 +13,9 @@ const Why3 = "https://i.postimg.cc/L8jzdZn5/world-map-with-global-technology-soc
 const ser1 = "https://i.postimg.cc/sfk7JwNC/Adobe-Stock-41064239-Preview.jpg";
 const ser2 = "https://i.postimg.cc/52w3zZ4Z/passenger-airliner-flight-17934723.webp";
 const ser3 = "https://i.postimg.cc/C5L9fgn4/premium-photo-1664695368767-c42483a0bda1.jpg";
+
+const Vid = "https://streamable.com/oskwpw";
+
 /* --- Translations --- */
 const LANG = {
   en: {
@@ -35,7 +38,7 @@ const LANG = {
 const EN_MAIN_CONTENT = `
   <section id="home" class="hero">
     <video id="heroVideo" class="hero-video" autoplay muted loop playsinline crossorigin="anonymous">
-      <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+      <source src="${Vid}" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
 
@@ -155,7 +158,7 @@ const EN_MAIN_CONTENT = `
 const AR_MAIN_CONTENT = `
   <section id="home" class="hero">
     <video id="heroVideo" class="hero-video" autoplay muted loop playsinline crossorigin="anonymous">
-      <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+      <source src="${Vid}" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
 
