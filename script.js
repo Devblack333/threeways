@@ -481,3 +481,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } catch (e) { console.warn('init error', e); }
 });
+
+...
+<script src="main.js"></script>
+<script>
+  // your gallery + hero script (the big script you sent)
+</script>
+</body>
+</html>
