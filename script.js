@@ -444,6 +444,7 @@ function heroVideoEnhancements(){
   } catch(e){/*noop*/ }
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
   try {
     const enBtn = $id('lang-en'), arBtn = $id('lang-ar');
@@ -485,7 +486,232 @@ document.addEventListener('DOMContentLoaded', () => {
 ...
 <script src="main.js"></script>
 <script>
-  // your gallery + hero script (the big script you sent)
+<script>
+/* GALLERY + HERO VIDEO FIX (drop-in; doesn't change your main script) */
+(function(){
+  const GALLERY_INDEX = '/gallery/index.json'; // relative path - recommended
+  // Optionally set window.GITHUB_REPO = { owner:'YOURNAME', repo:'REPO', branch:'main' } if you want auto-enumeration via GitHub API (public repo).
+  const GITHUB_REPO = window.GITHUB_REPO || null;
+
+  // create nav link automatically
+  function createNavLink() {
+    if (document.querySelector('.nav a[href="#gallery"]')) return;
+    const a = document.createElement('a');
+    a.href = '#gallery';
+    a.className = 'nav-link';
+    // language-aware label
+    const lang = localStorage.getItem('site_lang') || 'en';
+    a.textContent = (lang === 'ar') ? 'المعرض' : 'Gallery';
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const el = document.getElementById('gallery');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    const nav = document.querySelector('.nav');
+    if (nav) nav.appendChild(a);
+  }
+
+  // ensure hero <source> has proper src and type
+  function fixHeroVideo() {
+    const v = document.getElementById('heroVideo');
+    if (!v) return;
+    try {
+      let srcEl = v.querySelector('source');
+      if (!srcEl) {
+        srcEl = document.createElement('source');
+        v.appendChild(srcEl);
+      }
+      // set correct src and type (Vid comes from your main script)
+      if (typeof Vid !== 'undefined') srcEl.src = Vid;
+      if (!srcEl.getAttribute('type')) srcEl.setAttribute('type', 'video/mp4');
+      // try to reload/play
+      v.load && v.load();
+      v.play && v.play().catch(()=>{});
+    } catch (e) { /* noop */ }
+  }
+
+  // inject gallery shell (keeps good structure and does not touch main templates)
+  function injectGalleryShell() {
+    if (document.getElementById('gallery')) return;
+    const section = document.createElement('section');
+    section.id = 'gallery';
+    section.className = 'card gallery-section';
+    const lang = localStorage.getItem('site_lang') || 'en';
+    section.innerHTML = `
+      <h2>${lang === 'ar' ? 'المعرض' : 'Gallery'}</h2>
+      <div class="gallery-track" role="list" aria-label="${lang === 'ar' ? 'معرض الصور' : 'Image gallery'}"></div>
+      <div class="gallery-msg muted">Loading images…</div>
+    `;
+    const contact = document.getElementById('contact');
+    if (contact) contact.parentNode.insertBefore(section, contact);
+    else document.getElementById('pageContent')?.appendChild(section);
+  }
+
+  // try to fetch /gallery/index.json; fallback to GitHub API if set (public repo)
+  async function fetchGalleryIndex() {
+    try {
+      const res = await fetch(GALLERY_INDEX, { cache: 'no-cache' });
+      if (res.ok) return await res.json();
+    } catch (e) {}
+    // fallback to GitHub API listing (requires public repo)
+    if (GITHUB_REPO && GITHUB_REPO.owner && GITHUB_REPO.repo) {
+      try {
+        const api = `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.repo}/contents/gallery?ref=${GITHUB_REPO.branch || 'main'}`;
+        const r = await fetch(api);
+        if (!r.ok) throw new Error('gh list fail');
+        const json = await r.json();
+        // return array of download_url strings
+        return json.filter(i => i.type === 'file').map(f => f.download_url);
+      } catch (e) { /* noop */ }
+    }
+    return null;
+  }
+
+  // load images into gallery track
+  async function loadGalleryImages() {
+    const track = document.querySelector('.gallery-track');
+    const msg = document.querySelector('.gallery-msg');
+    if (!track) return;
+    track.innerHTML = '';
+    if (msg) msg.style.display = '';
+    const data = await fetchGalleryIndex();
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      if (msg) msg.textContent = 'No images found. Add /gallery/index.json containing filenames or set window.GITHUB_REPO for auto-listing.';
+      return;
+    }
+
+    // normalize to full URLs
+    const list = data.map(item => {
+      if (typeof item === 'string') {
+        if (item.startsWith('http') || item.startsWith('data:')) return item;
+        // filename only -> prefix with /gallery/
+        return '/gallery/' + item.replace(/^\//, '');
+      }
+      if (item && item.download_url) return item.download_url;
+      return null;
+    }).filter(Boolean);
+
+    if (list.length === 0) {
+      if (msg) msg.textContent = 'No visible image files found.';
+      return;
+    }
+    if (msg) msg.style.display = 'none';
+
+    // build items
+    list.forEach((src, idx) => {
+      const div = document.createElement('div');
+      div.className = 'gallery-item';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `image-${idx}`;
+      img.loading = 'lazy';
+      div.appendChild(img);
+      div.addEventListener('click', () => openLightbox(list, idx));
+      track.appendChild(div);
+    });
+  }
+
+  /* LIGHTBOX */
+  let lbOverlay = null, lbImg = null, currentIndex = 0, lbList = [];
+
+  function buildLightbox() {
+    if (lbOverlay) return;
+    lbOverlay = document.createElement('div');
+    lbOverlay.className = 'gallery-lightbox';
+    lbOverlay.innerHTML = `
+      <div class="lb-controls">
+        <button class="lb-btn lb-close" aria-label="Close">Close</button>
+      </div>
+      <button class="lb-nav lb-prev" aria-label="Previous">&larr;</button>
+      <img class="lb-image" src="" alt="">
+      <button class="lb-nav lb-next" aria-label="Next">&rarr;</button>
+    `;
+    document.body.appendChild(lbOverlay);
+    lbImg = lbOverlay.querySelector('.lb-image');
+
+    lbOverlay.querySelector('.lb-close').addEventListener('click', closeLightbox);
+    lbOverlay.querySelector('.lb-prev').addEventListener('click', showPrev);
+    lbOverlay.querySelector('.lb-next').addEventListener('click', showNext);
+
+    // keyboard
+    window.addEventListener('keydown', (e) => {
+      if (!lbOverlay.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+
+    // touch swipe
+    let startX = null;
+    lbOverlay.addEventListener('touchstart', (ev) => { startX = ev.touches[0].clientX; });
+    lbOverlay.addEventListener('touchend', (ev) => {
+      if (startX === null) return;
+      const dx = ev.changedTouches[0].clientX - startX;
+      if (dx > 40) showPrev();
+      else if (dx < -40) showNext();
+      startX = null;
+    });
+
+    // close by click outside image
+    lbOverlay.addEventListener('click', (e) => {
+      if (e.target === lbOverlay) closeLightbox();
+    });
+  }
+
+  function openLightbox(list, idx) {
+    buildLightbox();
+    lbList = list.slice();
+    currentIndex = idx;
+    lbImg.src = lbList[currentIndex];
+    lbOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    if (!lbOverlay) return;
+    lbOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+  function showPrev() {
+    if (!lbList.length) return;
+    currentIndex = (currentIndex - 1 + lbList.length) % lbList.length;
+    lbImg.src = lbList[currentIndex];
+  }
+  function showNext() {
+    if (!lbList.length) return;
+    currentIndex = (currentIndex + 1) % lbList.length;
+    lbImg.src = lbList[currentIndex];
+  }
+
+  // wait for #pageContent to be updated by your main script, using a MutationObserver
+  function attachObserver() {
+    const pc = document.getElementById('pageContent');
+    if (!pc) {
+      // if pageContent doesn't exist yet, poll briefly
+      setTimeout(attachObserver, 60);
+      return;
+    }
+    createNavLink(); // ensure nav exists early
+    const mo = new MutationObserver((list) => {
+      // when your applyLanguage injects content, we will:
+      fixHeroVideo();
+      injectGalleryShell();
+      loadGalleryImages();
+    });
+    mo.observe(pc, { childList: true, subtree: true });
+
+    // run once immediately in case content already injected
+    setTimeout(() => {
+      fixHeroVideo();
+      injectGalleryShell();
+      loadGalleryImages();
+    }, 80);
+  }
+
+  // start
+  document.addEventListener('DOMContentLoaded', attachObserver);
+})();
+</script>
 </script>
 </body>
 </html>
