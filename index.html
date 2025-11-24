@@ -598,44 +598,22 @@
       return null;
     }
 
-    async function loadGalleryImages() {
-      const track = document.querySelector('.gallery-track');
-      const msg = document.querySelector('.gallery-msg');
-      if (!track) return;
-      track.innerHTML = '';
-      if (msg) msg.style.display = '';
-      const data = await fetchGalleryIndex();
-      if (!data || !Array.isArray(data) || data.length === 0) {
-        if (msg) msg.textContent = 'No images found. Add /gallery/index.json containing filenames or set window.GITHUB_REPO for auto-listing.';
-        return;
-      }
-      const list = data.map(item => {
-        if (typeof item === 'string') {
-          if (item.startsWith('http') || item.startsWith('data:')) return item;
-          return '/gallery/' + item.replace(/^\//, '');
-        }
-        if (item && item.download_url) return item.download_url;
-        return null;
-      }).filter(Boolean);
+    const galleryImages = [
+      '/gallery/1.jpeg',
+      '/gallery/2.jpeg',
+      '/gallery/3.jpeg',
+      '/gallery/4.jpeg',
+      '/gallery/5.jpeg',
+      '/gallery/6.jpeg',
+      '/gallery/7.jpeg',
+      '/gallery/8.jpeg',
+      '/gallery/9.jpeg',
+      '/gallery/10.jpeg',
+      '/gallery/11.jpeg',
+      '/gallery/12.jpeg',
+      '/gallery/13.jpeg'
+    ];
 
-      if (list.length === 0) {
-        if (msg) msg.textContent = 'No visible image files found.';
-        return;
-      }
-      if (msg) msg.style.display = 'none';
-
-      list.forEach((src, idx) => {
-        const div = document.createElement('div');
-        div.className = 'gallery-item';
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = `image-${idx}`;
-        img.loading = 'lazy';
-        div.appendChild(img);
-        div.addEventListener('click', () => openLightbox(list, idx));
-        track.appendChild(div);
-      });
-    }
 
     let lbOverlay = null, lbImg = null, currentIndex = 0, lbList = [];
 
