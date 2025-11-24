@@ -14,7 +14,7 @@ const ser1 = "https://i.postimg.cc/sfk7JwNC/Adobe-Stock-41064239-Preview.jpg";
 const ser2 = "https://i.postimg.cc/52w3zZ4Z/passenger-airliner-flight-17934723.webp";
 const ser3 = "https://i.postimg.cc/C5L9fgn4/premium-photo-1664695368767-c42483a0bda1.jpg";
 
-const Vid = "https://streamable.com/qs9k02";
+const Vid = "https://dl.dropboxusercontent.com/s/bndck8836iy9lk66pyfiu/Hailuo_Video_make-a-video-for-a-global-ship_449363811779067911.mp4";
 
 /* --- Translations --- */
 const LANG = {
