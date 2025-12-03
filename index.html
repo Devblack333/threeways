@@ -792,7 +792,7 @@
 
       "section_contact_h2": { "en": "Get in Touch", "ar": "تواصل معنا" },
       "contact_p": { "en": "Ready to move your freight? Contact us today for reliable service and competitive quotes.", "ar": "هل أنت مستعد لنقل شحنتك؟ اتصل بنا اليوم للحصول على خدمة موثوقة وعروض أسعار تنافسية." },
-      "contact_email": { "en": "Email us at info@threeways.com", "ar": "راسلنا عبر info@threeways.com" },
+      "contact_email": { "en": "Email us at info@threeways.com", "ar": "راسلنا عبر threewayssup@gmail.com" },
       "contact_whatsapp": { "en": "Chat with us on WhatsApp", "ar": "تحدث معنا عبر واتساب" },
       "contact_phone": { "en": "Call us at " + SITE_PHONE, "ar": "اتصل بنا على " + SITE_PHONE },
 
@@ -825,8 +825,10 @@
       return `
         <!-- Home Section -->
         <section id="home" class="hero">
-          <div class="hero-video-container" aria-hidden="true">
-            <img class="hero-video" src="${Why1}" alt="Hero image" />
+          <div class="hero-video-container">
+            <video autoplay muted loop playsinline class="hero-video">
+              <source src="vid.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="container hero-content">
             <h1 data-i18n="hero_h1">${i18n.hero_h1[lang]}</h1>
@@ -927,7 +929,7 @@
               <div class="card why-card">
                 <h3 style="color: var(--primary);">Email</h3>
                 <p data-i18n="contact_email">${i18n.contact_email[lang]}</p>
-                <a href="mailto:info@threeways.com" class="btn btn-primary" style="margin-top: 10px;">Send Email</a>
+                <a href="mailto:threewayssup@gmail.com" class="btn btn-primary" style="margin-top: 10px;">Send Email</a>
               </div>
               <div class="card why-card" style="border: 2px solid var(--secondary); box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);">
                 <h3 style="color: var(--secondary);">WhatsApp</h3>
